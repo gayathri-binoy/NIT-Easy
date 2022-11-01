@@ -31,7 +31,7 @@ const Header = () => {
                 <Nav.Link>
                   <i className='fas'></i> Add Product
                 </Nav.Link>
-              </LinkContainer><LinkContainer to='/cart'>
+              </LinkContainer><LinkContainer to='/wishlist'>
                 <Nav.Link>
                   <i className='fas'></i> Wishlist
                 </Nav.Link>
@@ -60,9 +60,6 @@ const Header = () => {
                   </LinkContainer>
                   <LinkContainer to='/admin/productlist'>
                     <NavDropdown.Item>Products</NavDropdown.Item>
-                  </LinkContainer>
-                  <LinkContainer to='/admin/orderlist'>
-                    <NavDropdown.Item>Orders</NavDropdown.Item>
                   </LinkContainer>
                 </NavDropdown>
               )}
