@@ -74,7 +74,7 @@ const ProductAddScreen = ({ match, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    console.log(name)
+    history.push(`/`)
     dispatch(
       createProduct({
         name,
@@ -90,7 +90,7 @@ const ProductAddScreen = ({ match, history }) => {
 
   return (
     <>
-      <Link to='/admin/productlist' className='btn btn-light my-3'>
+      <Link to='/' className='btn btn-light my-3'>
         Go Back
       </Link>
       <FormContainer>
@@ -181,7 +181,7 @@ const ProductAddScreen = ({ match, history }) => {
             </Form.Group>
 
             <Button type='submit' variant='primary'>
-              Update
+              Add
             </Button>
           </Form>
         )}
