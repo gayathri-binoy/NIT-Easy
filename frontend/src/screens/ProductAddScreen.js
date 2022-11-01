@@ -1,13 +1,12 @@
 import axios from 'axios'
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { listProductDetails, updateProduct, createProduct } from '../actions/productActions'
-import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
+import { createProduct } from '../actions/productActions'
 
 const ProductAddScreen = ({ match, history }) => {
 
@@ -23,13 +22,12 @@ const ProductAddScreen = ({ match, history }) => {
   const dispatch = useDispatch()
 
   const productDetails = useSelector((state) => state.productDetails)
-  const { loading, error, product } = productDetails
+  const { loading, error } = productDetails
 
   const productUpdate = useSelector((state) => state.productUpdate)
   const {
     loading: loadingUpdate,
     error: errorUpdate,
-    success: successUpdate,
   } = productUpdate
 
 //   useEffect(() => {
@@ -63,7 +61,7 @@ const ProductAddScreen = ({ match, history }) => {
           'Content-Type': 'multipart/form-data',
         },
       }
-
+      console.log(formData)
       const { data } = await axios.post('/api/upload', formData, config)
 
       setImage(data)

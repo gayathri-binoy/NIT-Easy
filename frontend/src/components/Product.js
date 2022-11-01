@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { Card } from 'react-bootstrap'
-import Rating from './Rating'
 
 const Product = ({ product }) => {
   return (
@@ -17,14 +16,7 @@ const Product = ({ product }) => {
           </Card.Title>
         </Link>
 
-        <Card.Text as='div'>
-          <Rating
-            value={product.rating}
-            text={product.rating}
-          />
-        </Card.Text>
-
-        <Card.Text as='h3' className='price'>${product.price}</Card.Text>
+        <Card.Text as='h3' className='price'>Rs. {product.price}</Card.Text>
       </Card.Body>
     </Card>
   )
