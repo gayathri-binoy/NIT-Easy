@@ -30,6 +30,10 @@ const userSchema = mongoose.Schema(
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password)
 }
+userSchema.methods.checkEmail = async function(enteredEmail) {
+  let regex = /[A-Za-z0-9]+_[A-Za-z0-9]+@nitc\.ac\.in/i;
+  return await regex.test(enteredEmail);
+}
 
 userSchema.pre('save', async function (next) {
   if (!this.isModified('password')) {

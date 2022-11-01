@@ -20,7 +20,7 @@ const authUser = asyncHandler(async (req, res) => {
     })
   } else {
     res.status(401)
-    throw new Error('Invalid email or password')
+    throw new Error('Not NITC email')
   }
 })
 
@@ -36,24 +36,33 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400)
     throw new Error('User already exists')
   }
-
-  const user = await User.create({
-    name,
-    email,
-    password,
-  })
-
-  if (user) {
-    res.status(201).json({
-      _id: user._id,
-      name: user.name,
-      email: user.email,
-      isAdmin: user.isAdmin,
-      token: generateToken(user._id),
+  let regex = /[A-Za-z0-9]+_[A-Za-z0-9]+@nitc\.ac\.in/i;
+  
+  if(await regex.test(email))
+  {
+    const user = await User.create({
+      name,
+      email,
+      password,
     })
-  } else {
-    res.status(400)
-    throw new Error('Invalid user data')
+  
+    if (user) {
+      res.status(201).json({
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        token: generateToken(user._id),
+      })
+    } else {
+      res.status(400)
+      throw new Error('Invalid user data')
+    }
+  }
+  else
+  {
+    res.status(401)
+    throw new Error('Not Nitc Email')
   }
 })
 
