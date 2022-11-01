@@ -44,7 +44,7 @@ export const login = (email, password) => async (dispatch) => {
       { email, password },
       config
     )
-
+    console.log(data)
     dispatch({
       type: USER_LOGIN_SUCCESS,
       payload: data,
@@ -91,7 +91,7 @@ export const register = (name, email, password) => async (dispatch) => {
       { name, email, password },
       config
     )
-
+    
     dispatch({
       type: USER_REGISTER_SUCCESS,
       payload: data,

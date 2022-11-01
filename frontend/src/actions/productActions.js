@@ -106,23 +106,23 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
   }
 }
 
-export const createProduct = () => async (dispatch, getState) => {
+export const createProduct = (product) => async (dispatch, getState) => {
   try {
     dispatch({
       type: PRODUCT_CREATE_REQUEST,
     })
-
+    console.log(product)
     const {
       userLogin: { userInfo },
     } = getState()
 
-    const config = {
-      headers: {
-        Authorization: `Bearer ${userInfo.token}`,
-      },
-    }
+    // const config = {
+    //   headers: {
+    //     Authorization: `Bearer ${userInfo.token}`,
+    //   },
+    // }
 
-    const { data } = await axios.post(`/api/products`, {}, config)
+    const { data } = await axios.post(`/api/products`, {...userInfo, ...product})
 
     dispatch({
       type: PRODUCT_CREATE_SUCCESS,
