@@ -106,6 +106,15 @@ const ProductScreen = ({ history, match }) => {
                     </Row>
                   </ListGroup.Item>
 
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>Listed Date:</Col>
+                      <Col>
+                      {(new String(product.createdAt)).slice(0,10)}
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+
                   {product.countInStock > 0 && (
                     <ListGroup.Item>
                       <Row>
