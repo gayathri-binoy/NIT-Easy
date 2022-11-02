@@ -15,6 +15,9 @@ const ProductScreen = ({ history, match }) => {
 
   const dispatch = useDispatch()
 
+  const userLogin = useSelector((state) => state.userLogin)
+  const { userInfo } = userLogin
+
   const productDetails = useSelector((state) => state.productDetails)
   const { loading, error, product } = productDetails
 
@@ -82,6 +85,7 @@ const ProductScreen = ({ history, match }) => {
               </ListGroup>
             </Col>
             <Col md={3}>
+            {userInfo && (
               <Card>
                 <ListGroup variant='flush'>
                   <ListGroup.Item>
@@ -135,8 +139,10 @@ const ProductScreen = ({ history, match }) => {
                       Add To Wishlist
                     </Button>
                   </ListGroup.Item>
+
                 </ListGroup>
               </Card>
+              )}
             </Col>
           </Row>
         </>
