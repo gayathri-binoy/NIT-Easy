@@ -7,7 +7,10 @@ import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import { listMyOrders } from '../actions/orderActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
-
+import {
+  listProducts,
+  deleteProduct,
+} from '../actions/productActions'
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState('')
@@ -29,12 +32,20 @@ const ProfileScreen = ({ location, history }) => {
   
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-  const productss= products.filter((p)=>p.user== userInfo._id)
+  const userProducts= products.filter((p)=>p.user== userInfo._id)
+
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
   const { success } = userUpdateProfile
 
   const orderListMy = useSelector((state) => state.orderListMy)
   const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
+
+  const productDelete = useSelector((state) => state.productDelete)
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = productDelete
 
   useEffect(() => {
     if (!userInfo) {
@@ -50,7 +61,12 @@ const ProfileScreen = ({ location, history }) => {
       }
     }
   }, [dispatch, history, userInfo, user, success])
-
+  const deleteHandler = (id) => {
+    if (window.confirm('Are you sure')) {
+      dispatch(deleteProduct(id))
+    }
+    
+  }
   const submitHandler = (e) => {
     e.preventDefault()
     if (password !== confirmPassword) {
@@ -121,11 +137,13 @@ const ProfileScreen = ({ location, history }) => {
       </Col>
       <Col md={9}>
         <h2>My Products</h2>
-        {loadingOrders ? (
+        
+        {loading ? (
           <Loader />
-        ) : errorOrders ? (
-          <Message variant='danger'>{errorOrders}</Message>
+        ) : error ? (
+          <Message variant='danger'>{error}</Message>
         ) : (
+          <>
           <Table striped bordered hover responsive className='table-sm'>
             <thead>
               <tr>
@@ -138,14 +156,14 @@ const ProfileScreen = ({ location, history }) => {
               </tr>
             </thead>
             <tbody>
-              {productss.map((product) => (
+              {userProducts.map((product) => (
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
                   <td>${product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
-                  {/* <td>
+                  <td>
                     <LinkContainer to={`/admin/product/${product._id}/edit`}>
                       <Button variant='light' className='btn-sm'>
                         <i className='fas fa-edit'></i>
@@ -158,11 +176,12 @@ const ProfileScreen = ({ location, history }) => {
                     >
                       <i className='fas fa-trash'></i>
                     </Button>
-                  </td> */}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </Table>
+          </>
         )}
       </Col>
     </Row>

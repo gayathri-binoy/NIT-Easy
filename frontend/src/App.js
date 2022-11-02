@@ -29,6 +29,7 @@ const App = () => {
           <Route path='/login' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
           <Route path='/profile' component={ProfileScreen} />
+          <Route path='/profile/:id/edit' component={ProductEditScreen} />
           <Route path='/product/:id' component={ProductScreen} />
           <Route path='/wishlist/:id?' component={WishlistScreen} />
           <Route path='/admin/userlist' component={UserListScreen} />

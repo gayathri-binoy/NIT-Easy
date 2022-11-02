@@ -66,10 +66,6 @@ const ProductListScreen = ({ history, match }) => {
     }
   }
 
-  const createProductHandler = () => {
-    dispatch(createProduct())
-  }
-
   return (
     <>
       <Row className='align-items-center'>
@@ -82,10 +78,10 @@ const ProductListScreen = ({ history, match }) => {
           </Button> */}
         </Col>
       </Row>
-      {loadingDelete && <Loader />}
+      {/* {loadingDelete && <Loader />}
       {errorDelete && <Message variant='danger'>{errorDelete}</Message>}
       {loadingCreate && <Loader />}
-      {errorCreate && <Message variant='danger'>{errorCreate}</Message>}
+      {errorCreate && <Message variant='danger'>{errorCreate}</Message>} */}
       {loading ? (
         <Loader />
       ) : error ? (
