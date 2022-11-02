@@ -15,6 +15,7 @@ import {
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [number, setNumber] = useState(null)
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [message, setMessage] = useState(null)
@@ -58,6 +59,7 @@ const ProfileScreen = ({ location, history }) => {
       } else {
         setName(user.name)
         setEmail(user.email)
+        setNumber(user.number)
       }
     }
   }, [dispatch, history, userInfo, user, success])
@@ -72,7 +74,7 @@ const ProfileScreen = ({ location, history }) => {
     if (password !== confirmPassword) {
       setMessage('Passwords do not match')
     } else {
-      dispatch(updateUserProfile({ id: user._id, name, email, password }))
+      dispatch(updateUserProfile({ id: user._id, name, email, number, password }))
     }
   }
 
@@ -106,6 +108,16 @@ const ProfileScreen = ({ location, history }) => {
                 placeholder='Enter email'
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+              ></Form.Control>
+            </Form.Group>
+
+            <Form.Group controlId='number'>
+              <Form.Label>Mobile Number</Form.Label>
+              <Form.Control
+                type='number'
+                placeholder='Enter mobile number'
+                value={number}
+                onChange={(e) => setNumber(e.target.value)}
               ></Form.Control>
             </Form.Group>
 
@@ -160,7 +172,7 @@ const ProfileScreen = ({ location, history }) => {
                 <tr key={product._id}>
                   <td>{product._id}</td>
                   <td>{product.name}</td>
-                  <td>${product.price}</td>
+                  <td>Rs. {product.price}</td>
                   <td>{product.category}</td>
                   <td>{product.brand}</td>
                   <td>

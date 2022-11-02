@@ -28,7 +28,7 @@ const authUser = asyncHandler(async (req, res) => {
 // @route   POST /api/users
 // @access  Public
 const registerUser = asyncHandler(async (req, res) => {
-  const { name, email, password } = req.body
+  const { name, email, number, password } = req.body
 
   const userExists = await User.findOne({ email })
 
@@ -43,6 +43,7 @@ const registerUser = asyncHandler(async (req, res) => {
     const user = await User.create({
       name,
       email,
+      number,
       password,
     })
   
@@ -51,6 +52,7 @@ const registerUser = asyncHandler(async (req, res) => {
         _id: user._id,
         name: user.name,
         email: user.email,
+        number: user.number,
         isAdmin: user.isAdmin,
         token: generateToken(user._id),
       })
@@ -77,6 +79,7 @@ const getUserProfile = asyncHandler(async (req, res) => {
       _id: user._id,
       name: user.name,
       email: user.email,
+      number: user.number,
       isAdmin: user.isAdmin,
     })
   } else {
@@ -94,6 +97,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
   if (user) {
     user.name = req.body.name || user.name
     user.email = req.body.email || user.email
+    user.number = req.body.number || user.number
     if (req.body.password) {
       user.password = req.body.password
     }
@@ -104,6 +108,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
+      number: updatedUser.number,
       isAdmin: updatedUser.isAdmin,
       token: generateToken(updatedUser._id),
     })
@@ -159,6 +164,7 @@ const updateUser = asyncHandler(async (req, res) => {
   if (user) {
     user.name = req.body.name || user.name
     user.email = req.body.email || user.email
+    user.number = req.body.number || user.number
     user.isAdmin = req.body.isAdmin
 
     const updatedUser = await user.save()
@@ -167,6 +173,7 @@ const updateUser = asyncHandler(async (req, res) => {
       _id: updatedUser._id,
       name: updatedUser.name,
       email: updatedUser.email,
+      number: updatedUser.number,
       isAdmin: updatedUser.isAdmin,
     })
   } else {
