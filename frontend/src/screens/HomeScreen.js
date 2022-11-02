@@ -19,12 +19,16 @@ const HomeScreen = ({ match }) => {
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
   const [sortBy, setSortBy] = useState('name');
-  const [data, setData] = useState([...products]);
-  console.log(data)
   useEffect(() => {
     dispatch(listProducts(keyword, pageNumber))
   }, [dispatch, keyword, pageNumber])
   
+  const [data, setData] = useState([]);
+
+  useEffect(()=> {
+    setData([...products])
+  },[products])
+
   useEffect(()=>{
     const sortProducts = (sortBy)=> {
       if (sortBy == 'name'){
@@ -48,32 +52,32 @@ const HomeScreen = ({ match }) => {
       else if (sortBy == 'createdAt'){
         const sorted = [...products].sort(function(a,b){
           return new Date(b.date) - new Date(a.date);
-          setData(sorted);
         });
+      setData(sorted);
       }
     }
     sortProducts(sortBy)
   },[sortBy]);
 
-  
 
   return (
     <>
       <Meta />
       <h1>Latest Products</h1>
-      <label>Sort Products By:</label>
-      
-      <select name="name" onChange={(e) => setSortBy(e.target.value)}>
-        <option value="name">Name</option>
-        <option value="price">Price</option>
-        <option value="createdAt">Date</option>
-      </select>
+
       {loading ? (
         <Loader />
       ) : error ? (
         <Message variant='danger'>{error}</Message>
       ) : (
         <>
+              <label>Sort Products By:</label>
+      
+      <select name="name" onChange={(e) => setSortBy(e.target.value)}>
+        <option value="name">Name</option>
+        <option value="price">Price</option>
+        <option value="createdAt">Date</option>
+      </select>
           <Row>
             {data.map((product) => (
               <Col key={product._id} xs={6} sm={6} md={6} lg={4} xl={3}>
