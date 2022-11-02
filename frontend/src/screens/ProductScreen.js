@@ -126,6 +126,15 @@ const ProductScreen = ({ history, match }) => {
                   )}
 
                   <ListGroup.Item>
+                    <Row>
+                      <Col>Listed Date:</Col>
+                      <Col>
+                        {product.createdAt.split('T',1)}
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+
+                  <ListGroup.Item>
                     <Button
                       onClick={addToCartHandler}
                       className='btn-block'
@@ -134,6 +143,15 @@ const ProductScreen = ({ history, match }) => {
                     >
                       Add To Wishlist
                     </Button>
+                  </ListGroup.Item>
+
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>CONTACT:</Col>
+                      <Col>
+                        {product.user}
+                      </Col>
+                    </Row>
                   </ListGroup.Item>
                 </ListGroup>
               </Card>
