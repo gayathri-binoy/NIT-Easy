@@ -130,6 +130,15 @@ const ProductScreen = ({ history, match }) => {
                   )}
 
                   <ListGroup.Item>
+                    <Row>
+                      <Col>Listed Date:</Col>
+                      <Col>
+                        {product.createdAt.split('T',1)}
+                      </Col>
+                    </Row>
+                  </ListGroup.Item>
+
+                  <ListGroup.Item>
                     <Button
                       onClick={addToCartHandler}
                       className='btn-block'
