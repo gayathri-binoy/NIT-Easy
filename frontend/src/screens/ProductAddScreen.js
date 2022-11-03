@@ -165,10 +165,19 @@ const ProductAddScreen = ({ match, history }) => {
               <Form.Label>Category</Form.Label>
               <Form.Control
                 type='text'
+                as='select'
                 placeholder='Enter category'
                 value={category}
                 onChange={(e) => setCategory(e.target.value)}
-              ></Form.Control>
+              >
+                <option>Select Category</option>
+                <option value='electronics'>Electronics</option>
+                <option value='cycle'>Cycle</option>
+                <option value='calculator'>Calculator</option>
+                <option value='apparel'>Apparel</option>
+                <option value='books'>Books</option>
+                <option value='other'>Other</option>
+              </Form.Control>
             </Form.Group>
 
             <Form.Group controlId='description'>
