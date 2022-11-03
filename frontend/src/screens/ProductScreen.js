@@ -45,7 +45,7 @@ const ProductScreen = ({ history, match }) => {
     }
   }, [dispatch, match, successProductReview])
 
-  const addToCartHandler = () => {
+  const addToWishlistHandler = () => {
     history.push(`/wishlist/${match.params.id}?qty=${qty}`)
   }
 
@@ -70,7 +70,7 @@ const ProductScreen = ({ history, match }) => {
                 <ListGroup.Item>
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
-                
+
                 <ListGroup.Item>Price: Rs. {product.price}</ListGroup.Item>
                 <ListGroup.Item>
                   Description: {product.description}
@@ -133,7 +133,7 @@ const ProductScreen = ({ history, match }) => {
 
                   <ListGroup.Item>
                     <Button
-                      onClick={addToCartHandler}
+                      onClick={addToWishlistHandler}
                       className='btn-block'
                       type='button'
                       disabled={product.countInStock === 0}
