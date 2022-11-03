@@ -5,13 +5,21 @@ import { Row, Col, Image, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import Meta from '../components/Meta'
+import axios from 'axios'
 import {
   listProductDetails,
 } from '../actions/productActions'
 import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
 
 const ProductScreen = ({ history, match }) => {
+  const [ userNumber,setUserNumber]=useState('')
   const [qty, setQty] = useState(1)
+
+  const getUserNumber =async (id)=>{ 
+    const res = (await axios.get(`/api/users/${id}`)).data
+    setUserNumber(res.number)
+    console.log("isnid"+userNumber)
+    }
 
   const dispatch = useDispatch()
 
@@ -25,6 +33,10 @@ const ProductScreen = ({ history, match }) => {
   const {
     success: successProductReview,
   } = productReviewCreate
+
+  if(typeof product !== 'undefined'){
+    getUserNumber(product.user)
+   }
 
   useEffect(() => {
     // if (successProductReview) {
@@ -147,6 +159,15 @@ const ProductScreen = ({ history, match }) => {
                     >
                       Add To Wishlist
                     </Button>
+                  </ListGroup.Item>
+
+                  <ListGroup.Item>
+                    <Row>
+                      <Col>CONTACT:</Col>
+                      <Col>
+                      { `${userNumber}`}
+                      </Col>
+                    </Row>
                   </ListGroup.Item>
 
                 </ListGroup>
