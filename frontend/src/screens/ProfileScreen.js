@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
-import { listMyProducts } from '../actions/orderActions'
+import { listMyProducts } from '../actions/productActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import { deleteProduct } from '../actions/productActions'
 
@@ -28,8 +28,8 @@ const ProfileScreen = ({ location, history }) => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
   const { success } = userUpdateProfile
 
-  const orderListMy = useSelector((state) => state.orderListMy)
-  const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
+  const productListMy = useSelector((state) => state.productListMy)
+  const { loading: loadingOrders, error: errorOrders, products } = productListMy
 
   useEffect(() => {
     if (!userInfo) {
@@ -153,7 +153,7 @@ const ProfileScreen = ({ location, history }) => {
               </tr>
             </thead>
             <tbody>
-              {orders.map((order) => (
+              {products.map((order) => (
                 <tr key={order._id}>
                   <td>{order._id}</td>
                   <td>{order.name}</td>
