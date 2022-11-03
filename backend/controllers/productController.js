@@ -121,10 +121,19 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Get logged in user products
+// @route   POST /api/products/myproducts
+// @access  Private
+const getMyProducts = asyncHandler(async (req, res) => {
+  const myProducts = await Product.find({ user: req.body._id })
+  res.json(myProducts)
+})
+
 export {
   getProducts,
   getProductById,
   deleteProduct,
   createProduct,
   updateProduct,
+  getMyProducts,
 }

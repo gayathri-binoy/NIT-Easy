@@ -39,10 +39,6 @@ const ProductScreen = ({ history, match }) => {
    }
 
   useEffect(() => {
-    // if (successProductReview) {
-    //   setRating(0)
-    //   setComment('')
-    // }
     if (!product._id || product._id !== match.params.id) {
       dispatch(listProductDetails(match.params.id))
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
@@ -52,16 +48,6 @@ const ProductScreen = ({ history, match }) => {
   const addToCartHandler = () => {
     history.push(`/wishlist/${match.params.id}?qty=${qty}`)
   }
-
-  // const submitHandler = (e) => {
-  //   e.preventDefault()
-  //   dispatch(
-  //     createProductReview(match.params.id, {
-  //       rating,
-  //       comment,
-  //     })
-  //   )
-  // }
 
   return (
     <>
@@ -84,12 +70,7 @@ const ProductScreen = ({ history, match }) => {
                 <ListGroup.Item>
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
-                {/* <ListGroup.Item>
-                  <Rating
-                    value={product.rating}
-                    text={`${product.numReviews} reviews`}
-                  />
-                </ListGroup.Item> */}
+                
                 <ListGroup.Item>Price: Rs. {product.price}</ListGroup.Item>
                 <ListGroup.Item>
                   Description: {product.description}

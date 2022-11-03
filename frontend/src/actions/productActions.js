@@ -74,12 +74,6 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState()
 
-    // const config = {
-    //   headers: {
-    //     Authorization: `Bearer ${userInfo.token}`,
-    //   },
-    // }
-
     await axios.delete(`/api/products/${id}`,{...userInfo})
 
     dispatch({
@@ -109,12 +103,6 @@ export const createProduct = (product) => async (dispatch, getState) => {
     const {
       userLogin: { userInfo },
     } = getState()
-
-    // const config = {
-    //   headers: {
-    //     Authorization: `Bearer ${userInfo.token}`,
-    //   },
-    // }
 
     const { data } = await axios.post(`/api/products`, {...userInfo, ...product})
 
@@ -146,13 +134,6 @@ export const updateProduct = (product) => async (dispatch, getState) => {
     const {
       userLogin: { userInfo },
     } = getState()
-
-    // const config = {
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Authorization: `Bearer ${userInfo.token}`,
-    //   },
-    // }
 
     const { data } = await axios.put(`/api/products/${product._id}`,{...userInfo, ...product})
 
