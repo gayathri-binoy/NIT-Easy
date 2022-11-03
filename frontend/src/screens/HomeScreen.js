@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col } from 'react-bootstrap'
 import Product from '../components/Product'
@@ -31,7 +30,7 @@ const HomeScreen = ({ match }) => {
 
   useEffect(()=>{
     const sortProducts = (sortBy)=> {
-      if (sortBy == 'name'){
+      if (sortBy === 'name'){
         const sorted = [...products].sort((a, b) => {
           const nameA = a.name.toUpperCase(); // ignore upper and lowercase
           const nameB = b.name.toUpperCase(); // ignore upper and lowercase
@@ -45,11 +44,11 @@ const HomeScreen = ({ match }) => {
         });
         setData(sorted);
       }
-      else if (sortBy == 'price'){
+      else if (sortBy === 'price'){
         const sorted = [...products].sort((a,b)=>a.price - b.price);
         setData(sorted);
       }  
-      else if (sortBy == 'createdAt'){
+      else if (sortBy === 'createdAt'){
         const sorted = [...products].sort(function(a,b){
           return new Date(b.date) - new Date(a.date);
         });

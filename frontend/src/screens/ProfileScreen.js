@@ -7,33 +7,23 @@ import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
 import { listMyOrders } from '../actions/orderActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
-import {
-  listProducts,
-  deleteProduct,
-} from '../actions/productActions'
+import { deleteProduct } from '../actions/productActions'
 
 const ProfileScreen = ({ location, history }) => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [number, setNumber] = useState(null)
+  const [number, setNumber] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [message, setMessage] = useState(null)
-  
-
-  
-  const productList = useSelector((state) => state.productList)
-  const { loading, error, products, page, pages } = productList
-  
 
   const dispatch = useDispatch()
 
   const userDetails = useSelector((state) => state.userDetails)
-  const { user } = userDetails
-  
+  const { loading, error, user } = userDetails
+
   const userLogin = useSelector((state) => state.userLogin)
   const { userInfo } = userLogin
-  const userProducts= products.filter((p)=>p.user== userInfo._id)
 
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
   const { success } = userUpdateProfile
@@ -63,14 +53,18 @@ const ProfileScreen = ({ location, history }) => {
       }
     }
   }, [dispatch, history, userInfo, user, success])
+
   const deleteHandler = (id) => {
     if (window.confirm('Are you sure')) {
       dispatch(deleteProduct(id))
     }
-    
+    history.push(`/profile`)
+    window.location.reload()
   }
+
   const submitHandler = (e) => {
     e.preventDefault()
+    history.push(`/profile`)
     if (password !== confirmPassword) {
       setMessage('Passwords do not match')
     } else {
@@ -149,13 +143,11 @@ const ProfileScreen = ({ location, history }) => {
       </Col>
       <Col md={9}>
         <h2>My Products</h2>
-        
-        {loading ? (
+        {loadingOrders ? (
           <Loader />
-        ) : error ? (
-          <Message variant='danger'>{error}</Message>
+        ) : errorOrders ? (
+          <Message variant='danger'>{errorOrders}</Message>
         ) : (
-          <>
           <Table striped bordered hover responsive className='table-sm'>
             <thead>
               <tr>
@@ -164,19 +156,19 @@ const ProfileScreen = ({ location, history }) => {
                 <th>PRICE</th>
                 <th>CATEGORY</th>
                 <th>BRAND</th>
-                
+                <th></th>
               </tr>
             </thead>
             <tbody>
-              {userProducts.map((product) => (
-                <tr key={product._id}>
-                  <td>{product._id}</td>
-                  <td>{product.name}</td>
-                  <td>Rs. {product.price}</td>
-                  <td>{product.category}</td>
-                  <td>{product.brand}</td>
+              {orders.map((order) => (
+                <tr key={order._id}>
+                  <td>{order._id}</td>
+                  <td>{order.name}</td>
+                  <td>Rs. {order.price}</td>
+                  <td>{order.category}</td>
+                  <td>{order.brand}</td>
                   <td>
-                    <LinkContainer to={`/admin/product/${product._id}/edit`}>
+                    <LinkContainer to={`/${order._id}/edit`}>
                       <Button variant='light' className='btn-sm'>
                         <i className='fas fa-edit'></i>
                       </Button>
@@ -184,7 +176,7 @@ const ProfileScreen = ({ location, history }) => {
                     <Button
                       variant='danger'
                       className='btn-sm'
-                      onClick={() => deleteHandler(product._id)}
+                      onClick={() => deleteHandler(order._id)}
                     >
                       <i className='fas fa-trash'></i>
                     </Button>
@@ -193,7 +185,6 @@ const ProfileScreen = ({ location, history }) => {
               ))}
             </tbody>
           </Table>
-          </>
         )}
       </Col>
     </Row>

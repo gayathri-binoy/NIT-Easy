@@ -1,14 +1,16 @@
 import axios from 'axios'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { createProduct } from '../actions/productActions'
+import { listProductDetails, updateProduct } from '../actions/productActions'
+import { PRODUCT_UPDATE_RESET } from '../constants/productConstants'
 
-const ProductAddScreen = ({ match, history }) => {
+const MyProductEditScreen = ({ match, history }) => {
+  const productId = match.params.id
 
   const [name, setName] = useState('')
   const [price, setPrice] = useState(0)
@@ -22,32 +24,34 @@ const ProductAddScreen = ({ match, history }) => {
   const dispatch = useDispatch()
 
   const productDetails = useSelector((state) => state.productDetails)
-  const { loading, error } = productDetails
+  const { loading, error, product } = productDetails
 
   const productUpdate = useSelector((state) => state.productUpdate)
   const {
     loading: loadingUpdate,
     error: errorUpdate,
+    success: successUpdate,
   } = productUpdate
 
-//   useEffect(() => {
-//     if (successUpdate) {
-//       dispatch({ type: PRODUCT_UPDATE_RESET })
-//       history.push('/admin/productlist')
-//     } else {
-//       if (!product.name || product._id !== productId) {
-//         dispatch(listProductDetails(productId))
-//       } else {
-//         setName(product.name)
-//         setPrice(product.price)
-//         setImage(product.image)
-//         setBrand(product.brand)
-//         setCategory(product.category)
-//         setCountInStock(product.countInStock)
-//         setDescription(product.description)
-//       }
-//     }
-//   }, [dispatch, history, productId, product, successUpdate])
+  useEffect(() => {
+    if (successUpdate) {
+      dispatch({ type: PRODUCT_UPDATE_RESET })
+      history.push('/profile')
+      window.location.reload();
+    } else {
+      if (!product.name || product._id !== productId) {
+        dispatch(listProductDetails(productId))
+      } else {
+        setName(product.name)
+        setPrice(product.price)
+        setImage(product.image)
+        setBrand(product.brand)
+        setCategory(product.category)
+        setCountInStock(product.countInStock)
+        setDescription(product.description)
+      }
+    }
+  }, [dispatch, history, productId, product, successUpdate])
 
   const uploadFileHandler = async (e) => {
     const file = e.target.files[0]
@@ -61,7 +65,7 @@ const ProductAddScreen = ({ match, history }) => {
           'Content-Type': 'multipart/form-data',
         },
       }
-      console.log(formData)
+
       const { data } = await axios.post('/api/upload', formData, config)
 
       setImage(data)
@@ -74,9 +78,9 @@ const ProductAddScreen = ({ match, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    history.push(`/`)
     dispatch(
-      createProduct({
+      updateProduct({
+        _id: productId,
         name,
         price,
         image,
@@ -86,16 +90,15 @@ const ProductAddScreen = ({ match, history }) => {
         countInStock,
       })
     )
-    window.location.reload()
   }
 
   return (
     <>
-      <Link to='/' className='btn btn-light my-3'>
+      <Link to='/profile' className='btn btn-light my-3'>
         Go Back
       </Link>
       <FormContainer>
-        <h1>Add Product</h1>
+        <h1>Edit Product</h1>
         {loadingUpdate && <Loader />}
         {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
         {loading ? (
@@ -182,7 +185,7 @@ const ProductAddScreen = ({ match, history }) => {
             </Form.Group>
 
             <Button type='submit' variant='primary'>
-              Add
+              Update
             </Button>
           </Form>
         )}
@@ -191,4 +194,4 @@ const ProductAddScreen = ({ match, history }) => {
   )
 }
 
-export default ProductAddScreen
+export default MyProductEditScreen
