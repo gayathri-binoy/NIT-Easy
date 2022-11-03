@@ -162,6 +162,16 @@ const ProductScreen = ({ history, match }) => {
                   </ListGroup.Item>
 
                   <ListGroup.Item>
+                    <Button
+                      //onClick={reportHandler}
+                      className='btn-block btn-danger'
+                      type='button'
+                    >
+                      Report
+                    </Button>
+                  </ListGroup.Item>
+
+                  <ListGroup.Item>
                     <Row>
                       <Col>CONTACT:</Col>
                       <Col>
