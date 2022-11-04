@@ -152,8 +152,8 @@ const ProductAddScreen = ({ match, history }) => {
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option>Select Category</option>
-                <option value='electronics'>Electronics</option>
-                <option value='cycle'>Cycle</option>
+                <option value='Electronics'>Electronics</option>
+                <option value='cycles'>Cycle</option>
                 <option value='calculator'>Calculator</option>
                 <option value='apparel'>Apparel</option>
                 <option value='books'>Books</option>
