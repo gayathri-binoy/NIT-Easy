@@ -1,69 +1,39 @@
 
-# TAKOMA 
-
-![Captureddfsdf](https://user-images.githubusercontent.com/92208712/189333946-df6eddc8-6d1e-4b8f-8424-4d005753b49d.PNG)
+# NIT-EASY
 
 
 ## Built With
-
 - HTML/CSS
 - Javascript
 - React/Redux
-- Visual Studio
-- Git/GitHub
-- GitFlow
-- Webpack
 
-## Live Demo
+##**Implementation Details**
 
-[Live Demo](https://takoma.herokuapp.com/)
-
-## Getting Started
+## 1. Getting Started
 
 Create a repo then clone it and open into Visual Studio Code
 
-### Setup
+###  2. Setup
 
 - Download and install npm
-- Command line / Git bash
 
-### Install
+### 3. Install
 
-- Visual Studio Code
-- `npm install`
-- `npm run build`
-- `npm start`
-
+- run `npm install` in both ./NIT-Easy folder and in  ./NIT-Easy/frontend.
+- `npm run build` in ./NIT-Easy
+- `npm start` in ./NIT-Easy
+- To import sample products run `node seeder.js` from ./NIT-Easy/backend folder.
 
 
-### Deployment
+### Homepage
 
-Deploy onto the web using GitHub Pages
+NIT-Easy/frontend/src/screens/Homescreen.js
 
-## Authors
+### Index
 
-👤 **AshourMohamed**
+NIT-Easy/frontend/src/index.js
 
-- GitHub: [@githubhandle](https://github.com/AACHOURMOHAMED)
-- Twitter: [@twitterhandle](https://twitter.com/MohamedAachour3)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/mohamed-aachour-25405b215)
 
-## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](../../issues/).
 
-## Show your support
-
-Give a ⭐️ if you like this project!
-
-## Acknowledgments
-
-- Hat tip to anyone whose code was used
-- Inspiration
-- etc
-
-## 📝 License
-
-This project is [MIT](./MIT.md) licensed.
