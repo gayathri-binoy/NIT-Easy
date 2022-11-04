@@ -9,15 +9,12 @@ import WishlistScreen from './screens/WishlistScreen'
 import LoginScreen from './screens/LoginScreen'
 import RegisterScreen from './screens/RegisterScreen'
 import ProfileScreen from './screens/ProfileScreen'
-import PlaceOrderScreen from './screens/PlaceOrderScreen'
-import OrderScreen from './screens/OrderScreen'
 import UserListScreen from './screens/UserListScreen'
 import UserEditScreen from './screens/UserEditScreen'
 import ProductAddScreen from './screens/ProductAddScreen'
 import ProductListScreen from './screens/ProductListScreen'
 import ProductEditScreen from './screens/ProductEditScreen'
 import MyProductEditScreen from './screens/MyProductEditScreen'
-import OrderListScreen from './screens/OrderListScreen'
 
 const App = () => {
   return (
@@ -25,8 +22,6 @@ const App = () => {
       <Header />
       <main className='py-3'>
         <Container>
-          <Route path='/order/:id' component={OrderScreen} />
-          <Route path='/placeorder' component={PlaceOrderScreen} />
           <Route path='/login' component={LoginScreen} />
           <Route path='/register' component={RegisterScreen} />
           <Route path='/profile' component={ProfileScreen} exact
@@ -48,7 +43,6 @@ const App = () => {
             exact
           />
           <Route path='/admin/product/:id/edit' component={ProductEditScreen} />
-          <Route path='/admin/orderlist' component={OrderListScreen} />
           <Route path='/search/:keyword' component={HomeScreen} exact />
           <Route path='/page/:pageNumber' component={HomeScreen} exact />
           <Route

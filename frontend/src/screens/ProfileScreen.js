@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
 import Loader from '../components/Loader'
 import { getUserDetails, updateUserProfile } from '../actions/userActions'
-import { listMyOrders } from '../actions/orderActions'
+import { listMyProducts } from '../actions/productActions'
 import { USER_UPDATE_PROFILE_RESET } from '../constants/userConstants'
 import { deleteProduct } from '../actions/productActions'
 
@@ -28,15 +28,8 @@ const ProfileScreen = ({ location, history }) => {
   const userUpdateProfile = useSelector((state) => state.userUpdateProfile)
   const { success } = userUpdateProfile
 
-  const orderListMy = useSelector((state) => state.orderListMy)
-  const { loading: loadingOrders, error: errorOrders, orders } = orderListMy
-
-  const productDelete = useSelector((state) => state.productDelete)
-  const {
-    loading: loadingDelete,
-    error: errorDelete,
-    success: successDelete,
-  } = productDelete
+  const productListMy = useSelector((state) => state.productListMy)
+  const { loading: loadingOrders, error: errorOrders, products } = productListMy
 
   useEffect(() => {
     if (!userInfo) {
@@ -45,7 +38,7 @@ const ProfileScreen = ({ location, history }) => {
       if (!user || !user.name || success) {
         dispatch({ type: USER_UPDATE_PROFILE_RESET })
         dispatch(getUserDetails('profile'))
-        dispatch(listMyOrders())
+        dispatch(listMyProducts())
       } else {
         setName(user.name)
         setEmail(user.email)
@@ -160,7 +153,7 @@ const ProfileScreen = ({ location, history }) => {
               </tr>
             </thead>
             <tbody>
-              {orders.map((order) => (
+              {products.map((order) => (
                 <tr key={order._id}>
                   <td>{order._id}</td>
                   <td>{order.name}</td>

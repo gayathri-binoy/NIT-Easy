@@ -39,29 +39,15 @@ const ProductScreen = ({ history, match }) => {
    }
 
   useEffect(() => {
-    // if (successProductReview) {
-    //   setRating(0)
-    //   setComment('')
-    // }
     if (!product._id || product._id !== match.params.id) {
       dispatch(listProductDetails(match.params.id))
       dispatch({ type: PRODUCT_CREATE_REVIEW_RESET })
     }
   }, [dispatch, match, successProductReview])
 
-  const addToCartHandler = () => {
+  const addToWishlistHandler = () => {
     history.push(`/wishlist/${match.params.id}?qty=${qty}`)
   }
-
-  // const submitHandler = (e) => {
-  //   e.preventDefault()
-  //   dispatch(
-  //     createProductReview(match.params.id, {
-  //       rating,
-  //       comment,
-  //     })
-  //   )
-  // }
 
   return (
     <>
@@ -84,12 +70,7 @@ const ProductScreen = ({ history, match }) => {
                 <ListGroup.Item>
                   <h3>{product.name}</h3>
                 </ListGroup.Item>
-                {/* <ListGroup.Item>
-                  <Rating
-                    value={product.rating}
-                    text={`${product.numReviews} reviews`}
-                  />
-                </ListGroup.Item> */}
+
                 <ListGroup.Item>Price: Rs. {product.price}</ListGroup.Item>
                 <ListGroup.Item>
                   Description: {product.description}
@@ -152,12 +133,22 @@ const ProductScreen = ({ history, match }) => {
 
                   <ListGroup.Item>
                     <Button
-                      onClick={addToCartHandler}
+                      onClick={addToWishlistHandler}
                       className='btn-block'
                       type='button'
                       disabled={product.countInStock === 0}
                     >
                       Add To Wishlist
+                    </Button>
+                  </ListGroup.Item>
+
+                  <ListGroup.Item>
+                    <Button
+                      //onClick={reportHandler}
+                      className='btn-block btn-danger'
+                      type='button'
+                    >
+                      Report
                     </Button>
                   </ListGroup.Item>
 

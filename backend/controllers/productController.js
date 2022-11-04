@@ -69,8 +69,8 @@ const createProduct = asyncHandler(async (req, res) => {
       brand: brand,
       category: category,
       countInStock: countInStock,
-      numReviews: 0,
       description: description,
+      isReported: false
     })
   } catch (error) {
     console.log(error.message)
@@ -98,6 +98,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     brand,
     category,
     countInStock,
+    isReported
   } = req.body
 
   const product = await Product.findById(req.params.id)
@@ -110,6 +111,7 @@ const updateProduct = asyncHandler(async (req, res) => {
     product.brand = brand
     product.category = category
     product.countInStock = countInStock
+    product.isReported = isReported
 
     const updatedProduct = await product.save()
     res.json(updatedProduct)
@@ -119,10 +121,19 @@ const updateProduct = asyncHandler(async (req, res) => {
   }
 })
 
+// @desc    Get logged in user products
+// @route   POST /api/products/myproducts
+// @access  Private
+const getMyProducts = asyncHandler(async (req, res) => {
+  const myProducts = await Product.find({ user: req.body._id })
+  res.json(myProducts)
+})
+
 export {
   getProducts,
   getProductById,
   deleteProduct,
   createProduct,
   updateProduct,
+  getMyProducts,
 }

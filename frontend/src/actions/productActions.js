@@ -15,6 +15,9 @@ import {
   PRODUCT_UPDATE_REQUEST,
   PRODUCT_UPDATE_SUCCESS,
   PRODUCT_UPDATE_FAIL,
+  PRODUCT_LIST_MY_REQUEST,
+  PRODUCT_LIST_MY_SUCCESS,
+  PRODUCT_LIST_MY_FAIL,
 } from '../constants/productConstants'
 import { logout } from './userActions'
 
@@ -74,12 +77,6 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState()
 
-    // const config = {
-    //   headers: {
-    //     Authorization: `Bearer ${userInfo.token}`,
-    //   },
-    // }
-
     await axios.delete(`/api/products/${id}`,{...userInfo})
 
     dispatch({
@@ -109,12 +106,6 @@ export const createProduct = (product) => async (dispatch, getState) => {
     const {
       userLogin: { userInfo },
     } = getState()
-
-    // const config = {
-    //   headers: {
-    //     Authorization: `Bearer ${userInfo.token}`,
-    //   },
-    // }
 
     const { data } = await axios.post(`/api/products`, {...userInfo, ...product})
 
@@ -147,13 +138,6 @@ export const updateProduct = (product) => async (dispatch, getState) => {
       userLogin: { userInfo },
     } = getState()
 
-    // const config = {
-    //   headers: {
-    //     'Content-Type': 'application/json',
-    //     Authorization: `Bearer ${userInfo.token}`,
-    //   },
-    // }
-
     const { data } = await axios.put(`/api/products/${product._id}`,{...userInfo, ...product})
 
     dispatch({
@@ -171,6 +155,37 @@ export const updateProduct = (product) => async (dispatch, getState) => {
     }
     dispatch({
       type: PRODUCT_UPDATE_FAIL,
+      payload: message,
+    })
+  }
+}
+
+export const listMyProducts = () => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: PRODUCT_LIST_MY_REQUEST,
+    })
+
+    const {
+      userLogin: { userInfo },
+    } = getState()
+
+    const { data } = await axios.post(`/api/products/myproducts`, {...userInfo})
+
+    dispatch({
+      type: PRODUCT_LIST_MY_SUCCESS,
+      payload: data,
+    })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    if (message === 'Not authorized, token failed') {
+      dispatch(logout())
+    }
+    dispatch({
+      type: PRODUCT_LIST_MY_FAIL,
       payload: message,
     })
   }

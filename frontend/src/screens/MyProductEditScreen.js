@@ -88,6 +88,7 @@ const MyProductEditScreen = ({ match, history }) => {
         category,
         description,
         countInStock,
+        isReported: product.isReported,
       })
     )
   }

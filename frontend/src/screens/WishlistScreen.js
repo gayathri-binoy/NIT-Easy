@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, ListGroup, Image, Form, Button } from 'react-bootstrap'
 import Message from '../components/Message'
-import { addToCart, removeFromCart } from '../actions/cartActions'
+import { addToWishlist, removeFromWishlist } from '../actions/wishlistActions'
 
 const WishlistScreen = ({ match, location, history }) => {
   const productId = match.params.id
@@ -13,29 +13,29 @@ const WishlistScreen = ({ match, location, history }) => {
   const dispatch = useDispatch()
 
   const cart = useSelector((state) => state.cart)
-  const { cartItems } = cart
+  const { wishlistItems } = cart
 
   useEffect(() => {
     if (productId) {
-      dispatch(addToCart(productId, qty))
+      dispatch(addToWishlist(productId, qty))
     }
   }, [dispatch, productId, qty])
 
-  const removeFromCartHandler = (id) => {
-    dispatch(removeFromCart(id))
+  const removeFromWishlistHandler = (id) => {
+    dispatch(removeFromWishlist(id))
   }
 
   return (
     <Row>
       <Col>
         <h1>Wishlist</h1>
-        {cartItems.length === 0 ? (
+        {wishlistItems.length === 0 ? (
           <Message>
             Your wishlist is empty <Link to='/'>Go Back</Link>
           </Message>
         ) : (
           <ListGroup variant='flush'>
-            {cartItems.map((item) => (
+            {wishlistItems.map((item) => (
               <ListGroup.Item key={item.product}>
                 <Row>
                   <Col md={2}>
@@ -51,7 +51,7 @@ const WishlistScreen = ({ match, location, history }) => {
                       value={item.qty}
                       onChange={(e) =>
                         dispatch(
-                          addToCart(item.product, Number(e.target.value))
+                          addToWishlist(item.product, Number(e.target.value))
                         )
                       }
                     >
@@ -66,7 +66,7 @@ const WishlistScreen = ({ match, location, history }) => {
                     <Button
                       type='button'
                       variant='light'
-                      onClick={() => removeFromCartHandler(item.product)}
+                      onClick={() => removeFromWishlistHandler(item.product)}
                     >
                       <i className='fas fa-trash'></i>
                     </Button>

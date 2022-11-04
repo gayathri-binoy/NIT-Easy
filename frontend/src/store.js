@@ -9,8 +9,9 @@ import {
   productUpdateReducer,
   productReviewCreateReducer,
   productTopRatedReducer,
+  productListMyReducer,
 } from './reducers/productReducers'
-import { cartReducer } from './reducers/cartReducers'
+import { wishlistReducer } from './reducers/wishlistReducers'
 import {
   userLoginReducer,
   userRegisterReducer,
@@ -20,14 +21,6 @@ import {
   userDeleteReducer,
   userUpdateReducer,
 } from './reducers/userReducers'
-import {
-  orderCreateReducer,
-  orderDetailsReducer,
-  orderPayReducer,
-  orderDeliverReducer,
-  orderListMyReducer,
-  orderListReducer,
-} from './reducers/orderReducers'
 
 const reducer = combineReducers({
   productList: productListReducer,
@@ -37,7 +30,7 @@ const reducer = combineReducers({
   productUpdate: productUpdateReducer,
   productReviewCreate: productReviewCreateReducer,
   productTopRated: productTopRatedReducer,
-  cart: cartReducer,
+  cart: wishlistReducer,
   userLogin: userLoginReducer,
   userRegister: userRegisterReducer,
   userDetails: userDetailsReducer,
@@ -45,16 +38,11 @@ const reducer = combineReducers({
   userList: userListReducer,
   userDelete: userDeleteReducer,
   userUpdate: userUpdateReducer,
-  orderCreate: orderCreateReducer,
-  orderDetails: orderDetailsReducer,
-  orderPay: orderPayReducer,
-  orderDeliver: orderDeliverReducer,
-  orderListMy: orderListMyReducer,
-  orderList: orderListReducer,
+  productListMy: productListMyReducer,
 })
 
-const cartItemsFromStorage = localStorage.getItem('cartItems')
-  ? JSON.parse(localStorage.getItem('cartItems'))
+const cartItemsFromStorage = localStorage.getItem('wishlistItems')
+  ? JSON.parse(localStorage.getItem('wishlistItems'))
   : []
 
 const userInfoFromStorage = localStorage.getItem('userInfo')
@@ -67,7 +55,7 @@ const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
 
 const initialState = {
   cart: {
-    cartItems: cartItemsFromStorage,
+    wishlistItems: cartItemsFromStorage,
     shippingAddress: shippingAddressFromStorage,
   },
   userLogin: { userInfo: userInfoFromStorage },
