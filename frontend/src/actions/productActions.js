@@ -102,7 +102,6 @@ export const createProduct = (product) => async (dispatch, getState) => {
     dispatch({
       type: PRODUCT_CREATE_REQUEST,
     })
-    console.log(product)
     const {
       userLogin: { userInfo },
     } = getState()
