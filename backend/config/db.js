@@ -1,8 +1,9 @@
 import mongoose from 'mongoose'
+import dotenv from 'dotenv'
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(`mongodb+srv://Akshay:akshay@niteasy-cluster.092yodh.mongodb.net/?retryWrites=true&w=majority`, {
+    const conn = await mongoose.connect(process.env.DB_URI, {
       useUnifiedTopology: true,
       useNewUrlParser: true,
       useCreateIndex: true,

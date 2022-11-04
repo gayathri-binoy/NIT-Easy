@@ -129,6 +129,14 @@ const getMyProducts = asyncHandler(async (req, res) => {
   res.json(myProducts)
 })
 
+// @desc    Get reported products
+// @route   POST /api/products/reportedlist
+// @access  Private
+const getReportedProducts = asyncHandler(async (req, res) => {
+  const reportedProducts = await Product.find({ isReported: true })
+  res.json(reportedProducts)
+})
+
 export {
   getProducts,
   getProductById,
@@ -136,4 +144,5 @@ export {
   createProduct,
   updateProduct,
   getMyProducts,
+  getReportedProducts,
 }
